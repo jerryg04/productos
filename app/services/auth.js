@@ -22,6 +22,16 @@ async function login(user) {
     };
 }
 
+const register = async (req, res) => {
+    try {
+        res.json(await userService.register(req.body));
+    } catch (err) {
+        console.log("Ocurrio un error");
+        console.log(err);
+    }
+}
+
 module.exports = {
-    login
+    login,
+    register
 }

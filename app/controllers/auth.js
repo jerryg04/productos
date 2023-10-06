@@ -13,16 +13,16 @@ const login = async (req, res) => {
     }
 }
 
-async function listProducts() {
-    const rows = await pool.query(
-        "SELECT p.id, p.nombre, m.id as marca_id, m.nombre as marca_nombre, p.codigo_barras, p.fecha_creacion, p.fecha_actualizacion, p.fecha_eliminacion " +
-        "FROM productos p " +
-        "INNER JOIN marcas m on m.id = p.marca_id " +
-        "WHERE fecha_eliminacion IS NULL"
-    );
-    return rows.rows;
+const register = async (req, res) => {
+    try {
+        res.json(await auth.register(req.body));
+    } catch (err) {
+        console.log("Ocurrio un error");
+        console.log(err);
+    }
 }
 
 module.exports = {
-    login
+    login,
+    register
 }

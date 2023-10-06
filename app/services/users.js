@@ -5,7 +5,7 @@ const jwtTokens = require('../utils/jwt-helpers');
 async function register(user) {
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const newUser = await pool.query(
-      'INSERT INTO usuarios (id, nombre,email,password) VALUES ($1,$2,$3) RETURNING *'
+      'INSERT INTO usuarios (nombre,email,password) VALUES ($1,$2,$3) RETURNING *'
       , [user.nombre, user.email, hashedPassword]);
     
     return jwtTokens(newUser.rows[0]);

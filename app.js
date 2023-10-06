@@ -22,6 +22,8 @@ app.use('/api/v1/brands', brandsRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/auth', authRouter);
 
+const swaggerURL = process.env.HOST_URL + ":" + (process.env.PORT || 3000);
+
 //Swagger config
 const options = {
     definition: {
@@ -43,7 +45,7 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:3000",
+                url: swaggerURL,
             },
         ],
         components: {
