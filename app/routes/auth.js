@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('../controllers/auth');
 const router = express.Router();
+const { validateCreate } = require('../validators/auth');
 
 /**
  * @swagger
@@ -19,6 +20,26 @@ const router = express.Router();
  *           type: string
  *           description: Contraseña del usuario
  *       example:
+ *         email: gergi.gomez@gmail.com
+ *         password: 09##
+ *     NewAuth:
+ *       type: object
+ *       required:
+ *         - nombre
+ *         - email
+ *         - password
+ *       properties:
+ *         nombre:
+ *           type: string
+ *           description: Nombre completo del usuario
+ *         email:
+ *           type: string
+ *           description: Email del usuario
+ *         password:
+ *           type: string
+ *           description: Contraseña del usuario
+ *       example:
+ *         nombre: Gerardo Gomez
  *         email: gergi.gomez@gmail.com
  *         password: 09##
  */
@@ -58,11 +79,11 @@ router.post('/login', authController.login);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Auth'
+ *             $ref: '#/components/schemas/NewAuth'
  *     responses:
  *       200:
  *         description: Nueva usuario creado
  */
-router.post('/register', authController.register);
+router.post('/register', validateCreate, authController.register);
 
 module.exports = router;

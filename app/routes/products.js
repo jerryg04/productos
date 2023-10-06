@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authenticateToken = require('../middleware/authorization');
 const productController = require('../controllers/product');
-
+const { validateCreate } = require('../validators/product');
 /**
  * @swagger
  * components:
@@ -121,7 +121,7 @@ router.get('/:id', authenticateToken, productController.getOneProduct);
  *       200:
  *         description: Nuevo producto creado
  */
-router.post('/', authenticateToken, productController.createProduct);
+router.post('/',validateCreate, authenticateToken, productController.createProduct);
 
 // Actualizar un producto mediante su id
 router.patch('/:id', authenticateToken, productController.updateProduct);

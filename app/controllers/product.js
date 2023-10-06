@@ -2,6 +2,7 @@
 const product = require('../services/products');
 const url = require('url');
 const querystring = require('querystring');
+const { validationResult } = require("express-validator");
 
 const getProducts = async (req, res) => {
     try {
@@ -24,6 +25,14 @@ const getOneProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
     try {
+        const errors = validationResult(req);
+
+        // Si existe errores retornar Error
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array(),
+            });
+        }
         res.json(await product.create(req.body));
     } catch (err) {
         console.log("Ocurrio un error");

@@ -1,3 +1,4 @@
+const { validationResult } = require("express-validator");
 const auth = require('../services/auth');
 
 const login = async (req, res) => {
@@ -15,6 +16,14 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
     try {
+        const errors = validationResult(req);
+
+        // Si existe errores retornar Error
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array(),
+            });
+        }
         res.json(await auth.register(req.body));
     } catch (err) {
         console.log("Ocurrio un error");

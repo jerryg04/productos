@@ -2,8 +2,6 @@ const pool = require('./../../config/db');
 
 function validateCreate(product) {
     let messages = [];
-    console.log("product validate");
-    console.log(product);
     if (Object.keys(product).length === 0) {
         // let error = new Error([{error: "No se proporciona ningun objeto"}]);
         messages.push("No se proporciona ningun objeto");
