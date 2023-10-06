@@ -44,6 +44,25 @@ const router = express.Router();
  */
 router.post('/login', authController.login);
 
+// Registrar nuevo usuario
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ * /api/v1/auth/register:
+ *   post:
+ *     summary: Crear nuevo usuario
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Auth'
+ *     responses:
+ *       200:
+ *         description: Nueva usuario creado
+ */
 router.post('/register', authController.register);
 
 module.exports = router;
